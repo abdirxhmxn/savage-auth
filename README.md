@@ -20,6 +20,19 @@ A full-stack community site for 21 Savage fans featuring user authentication, an
 
 ---
 
+## Demo
+
+### Main Page
+![Main Page](public/img/main.png)
+
+### Login Page
+![Login Page](public/img/login.png)
+
+### Signup Page
+![Signup Page](public/img/signup.png)
+
+### Profile Page
+![Profile Page](public/img/profile.png)
 ## Tech Stack
 
 | Component       | Technology                           |
