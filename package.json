@@ -22,5 +22,9 @@
     "passport-google-oauth": "~1.0.0",
     "passport-local": "~1.0.0",
     "passport-twitter": "^0.1.5"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "go": "nodemon server.js"
   }
 }
