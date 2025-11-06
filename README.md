@@ -33,6 +33,10 @@ A full-stack community site for 21 Savage fans featuring user authentication, an
 
 ### Profile Page
 ![Profile Page](public/img/profile.png)
+
+## 🌐 Live Demo
+👉 [View Demo]((https://savage-auth-dht9.onrender.com))
+
 ## Tech Stack
 
 | Component       | Technology                           |
