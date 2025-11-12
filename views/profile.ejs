@@ -1,68 +1,163 @@
 <!doctype html>
 <html>
-<head>
-    <title>21 Savage Fan Site</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="container">
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+<head>
+  <title>My Profile</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <style>
+    body {
+      background: #f5f7fa;
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .welcome h1 {
+      color: #2c3e50;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .welcome p {
+      color: #555;
+      font-size: 1.1rem;
+    }
+
+    .profile-info {
+      margin-bottom: 30px;
+    }
+
+    .profile-info h3 {
+      color: #3498db;
+      margin-bottom: 15px;
+    }
+
+    .profile-info p {
+      margin: 5px 0;
+      font-size: 1rem;
+    }
+
+    .grades {
+      margin-top: 30px;
+    }
+
+    .grades h3 {
+      color: #27ae60;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #ecf0f1;
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .logout {
+      text-align: right;
+      margin-top: 30px;
+    }
+
+    .logout a {
+      color: #e74c3c;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .logout a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="welcome">
+      <h1>Welcome back, <%= user.local.email.split('@')[0] %>!</h1>
+      <p>We’re glad to have you here. This is your profile dashboard.</p>
     </div>
 
-    <div class="row">
+    <h1>Teacher Admin Page</h1>
 
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
+    <!-- Student Registry -->
+   
+    <!-- Add Student -->
+    <section>
+      <div>
+        <h2>Add Student</h2>
+        <form action="/student" method="POST">
+          <input type="text" placeholder="Student Name" name="name" />
+          <input type="text" id="studentQuote" name="subject" placeholder="Subject">
+          <input type="number" id="studentGradeMidterm"  name="midterm" placeholder="Midterm Grade">
+          <input type="number" id="studentGradeFinal" name="final" placeholder="Final Grade">
+          <input type="number" id="studentGradeAverage" name="average" placeholder="Average">
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
 
-                <% if (user.local.email) { %>
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p>
+    <div class="grades">
+      <h3><i class="fa fa-bar-chart"></i> Grades</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Subject</th>
+            <th>Midterm</th>
+            <th>Final</th>
+            <th>Average</th>
+          </tr>
+        </thead>
+        <tbody> 
+          <%for(let i = 0; i<Student.length; i++){%>
+          <tr>
+            <td><%=Student[i].name%></td>
+            <td><%=Student[i].subject%></td>
+            <td><%=Student[i].midterm%></td>
+            <td><%=Student[i].final%></td>
+            <td><%=Student[i].average%></td>
+          </tr>
+          <%}%>
+        </tbody>
+      </table>
+    </div>
 
-                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/local" class="btn btn-default">Connect Local</a>
-                <% } %>
+    <div class="logout">
+      <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
+    </div>
+  </div>
 
-            </div>
-        </div>
-        <div class="col-sm-6">
-          <h3>Messages</h3>
-          <ul class="messages">
-          <% for(var i=0; i<messages.length; i++) {%>
-            <li class="message">
-              <span><%= messages[i].name %></span>
-              <span><%= messages[i].msg %></span>
-              <span><%= messages[i].thumbUp %></span>
-              <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-              <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-              <span><i class="fa fa-trash" aria-hidden="true"></i></span>
-            </li>
-          <% } %>
-          </ul>
-
-          <h2>Add a message</h2>
-        <% if (user.local.email) { %>
-          <form action="/messages" method="POST">
-            <input type="text" value="<%= user.local.email %>" name="name">
-            <input type="text" placeholder="message" name="msg">
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-        <% } %>
-
-</div>
-
-<script src="main.js"></script>
-
+  <script src="/main.js"></script>
 </body>
+
 </html>
